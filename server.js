@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
+const connectDB = require("./config/DB");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
 const contact = require("./routes/contact");
+
+//? connect to DB
+connectDB();
+
+//? call routes
+// *  use body parser
+app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
