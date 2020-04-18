@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "client install": "npm install --prefix client",
+    "dev": "concurrently \"npm run client\" \" npm run server\""
   },
   "keywords": [],
   "author": "",
@@ -13,5 +16,6 @@
   "devDependencies": {
     "concurrently": "^5.1.0",
     "nodemon": "^2.0.3"
-  }
+  },
+  "dependencies": {}
 }

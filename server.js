@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
     data: "welcome to contact API",
   });
 });
+
+//* calling routes
 app.use("/api/users", user);
 app.use("/api/auth", auth);
 app.use("/api/contacts", contact);
