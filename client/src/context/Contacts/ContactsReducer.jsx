@@ -16,30 +16,35 @@ export default (state, action) => {
     case ADD_CONTACT:
       return {
         ...state,
-        contacts: [...state.contacts, action.payload],
+        loading: false,
+        contacts: [action.payload.data, ...state.contacts],
       };
     case UPDATE_CONTACT:
       return {
         ...state,
+        loading: false,
         contacts: state.contacts.map((contact) =>
-          contact.id === action.payload.id ? action.payload : contact
+          contact._id === action.payload._id ? action.payload : contact
         ),
       };
     case DELETE_CONTACT:
       return {
         ...state,
+        loading: false,
         contacts: state.contacts.filter(
-          (contact) => contact.id !== action.payload
+          (contact) => contact._id !== action.payload
         ),
       };
     case SET_CURRENT:
       return {
         ...state,
         current: action.payload,
+        loading: false,
       };
     case FILTER_CONTACTS:
       return {
         ...state,
+        loading: false,
         filtered: state.contacts.filter((contact) => {
           const regex = new RegExp(`${action.payload}`, "gi");
           return contact.name.match(regex) || contact.email.match(regex);
@@ -49,11 +54,33 @@ export default (state, action) => {
       return {
         ...state,
         filtered: null,
+        loading: false,
       };
     case CLEAR_CURRENT:
       return {
         ...state,
         current: null,
+        loading: false,
+      };
+    case CONTACT_ERROR:
+      return {
+        ...state,
+        error: action.payload.err,
+        loading: false,
+      };
+    case GET_CONTACTS:
+      return {
+        ...state,
+        contacts: action.payload.data,
+        loading: false,
+      };
+    case CLEAR_CONTACTS:
+      return {
+        ...state,
+        contacts: null,
+        loading: false,
+        current: null,
+        error: null,
       };
     default:
       return state;

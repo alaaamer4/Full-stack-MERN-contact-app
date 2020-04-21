@@ -9,15 +9,14 @@ const jwt = require("jsonwebtoken");
 //* @desc     register user
 //* @access  public
 router.post("/", async (req, res) => {
+  const result = validate(req.body);
+  if (result.error) {
+    return res.status(400).json({
+      success: false,
+      err: result.error.details[0].message,
+    });
+  }
   try {
-    const result = await validate(req.body);
-    console.log(result);
-    if (result.error) {
-      return res.status(400).json({
-        success: false,
-        err: result.error.details.map((detail) => detail.message),
-      });
-    }
     const { email, name, password } = req.body;
     let user = await User.findOne({ email });
     if (user) {
